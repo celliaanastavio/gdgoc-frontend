@@ -1,25 +1,45 @@
+import designArt from '../../assets/track-design.svg'
+import developmentArt from '../../assets/track-development.svg'
+import researchArt from '../../assets/track-research.svg'
 import type { Track } from '../../types'
+import TextLink from '../ui/TextLink'
 
 interface Props {
   track: Track
 }
 
+const visuals: Record<string, { tint: string; art: string }> = {
+  'research-discovery': { tint: 'bg-tint-blue', art: researchArt },
+  'design-creativity': { tint: 'bg-tint-yellow', art: designArt },
+  development: { tint: 'bg-tint-green', art: developmentArt },
+}
+
 export default function TrackCard({ track }: Props) {
+  const visual = visuals[track.id]
+
   return (
-    <article className="overflow-hidden rounded-2xl border border-gray-200 bg-white shadow-sm">
+    <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white">
       <div
-        className="flex h-32 items-center justify-center text-5xl"
-        style={{ backgroundColor: `${track.color}22` }}
+        className={`flex h-[232px] items-start justify-center overflow-hidden ${
+          visual?.tint ?? 'bg-surface'
+        }`}
       >
-        {track.icon}
+        {visual ? (
+          <img src={visual.art} alt="" className="-mt-1 size-[252px] max-w-none" />
+        ) : (
+          <span className="mt-16 text-6xl">{track.icon}</span>
+        )}
       </div>
-      <div className="p-5">
-        <p className="text-xs font-medium uppercase tracking-wide" style={{ color: track.color }}>
-          {track.tagline}
-        </p>
-        <h3 className="mt-1 text-lg font-semibold">{track.name}</h3>
-        <p className="mt-2 text-sm text-gray-600">{track.description}</p>
-        <p className="mt-3 text-xs text-gray-500">{track.skills.join(' · ')}</p>
+
+      <div className="flex flex-1 flex-col items-start gap-[18px] p-7">
+        <p className="text-[11px] font-medium uppercase text-link">{track.tagline}</p>
+        <h3 className="text-[28px] font-bold leading-[1.12] text-ink">{track.name}</h3>
+        <p className="text-base leading-[1.55] text-muted">{track.description}</p>
+        <hr className="w-full border-line" />
+        <p className="text-[13px] leading-normal text-muted">{track.skills.join(' · ')}</p>
+        <div className="mt-auto pt-2">
+          <TextLink to={track.explore_link}>Explore this track</TextLink>
+        </div>
       </div>
     </article>
   )
