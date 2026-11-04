@@ -28,3 +28,35 @@ export interface NavItem {
   label: string
   href: string
 }
+
+export interface Stats {
+  community_members: number
+  workshops_held: number
+  projects_shipped: number
+  active_tracks: number
+  university: string
+  city: string
+  country: string
+  founded_year: number
+  social: {
+    instagram: string
+    linkedin: string
+    github: string
+  }
+  tagline: string
+}
+
+export interface LearningFormat {
+  id: string
+  name: string
+  description: string
+  icon: string
+  cta: string
+}
+
+export interface JourneyStep {
+  step: number
+  id: string
+  title: string
+  description: string
+}
