@@ -18,8 +18,13 @@
   --color-tint-blue: #eaf2ff;
   --color-tint-yellow: #fff7df;
   --color-tint-green: #eaf5ed;
+  --color-tint-red: #fdedea;
 }
 
 body {
   color: var(--color-ink);
+}
+
+html {
+  scroll-behavior: smooth;
 }
