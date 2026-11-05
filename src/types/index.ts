@@ -60,3 +60,27 @@ export interface JourneyStep {
   title: string
   description: string
 }
+
+export interface Value {
+  id: string
+  title: string
+  description: string
+  icon: string
+  color: string
+}
+
+export interface Role {
+  id: string
+  title: string
+  description: string
+  icon: string
+  cta: string
+}
+
+export interface InquiryCategory {
+  id: string
+  label: string
+  description: string
+  icon: string
+  guidance: string
+}
