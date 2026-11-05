@@ -8,10 +8,11 @@ interface Props {
   track: Track
 }
 
-const visuals: Record<string, { tint: string; art: string }> = {
-  'research-discovery': { tint: 'bg-tint-blue', art: researchArt },
-  'design-creativity': { tint: 'bg-tint-yellow', art: designArt },
-  development: { tint: 'bg-tint-green', art: developmentArt },
+
+const visuals: Record<string, { tint: string; art: string; w: number; h: number; cx: number }> = {
+  'research-discovery': { tint: 'bg-tint-blue', art: researchArt, w: 342, h: 443, cx: 198.6 },
+  'design-creativity': { tint: 'bg-tint-yellow', art: designArt, w: 337, h: 389, cx: 196 },
+  development: { tint: 'bg-tint-green', art: developmentArt, w: 347, h: 452, cx: 198.6 },
 }
 
 export default function TrackCard({ track }: Props) {
@@ -19,19 +20,27 @@ export default function TrackCard({ track }: Props) {
 
   return (
     <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white">
-      <div
-        className={`flex h-[232px] items-start justify-center overflow-hidden ${
-          visual?.tint ?? 'bg-surface'
-        }`}
-      >
+      <div className={`relative h-[232px] shrink-0 ${visual?.tint ?? 'bg-surface'}`}>
         {visual ? (
-          <img src={visual.art} alt="" className="-mt-1 size-[252px] max-w-none" />
+          <img
+            src={visual.art}
+            alt=""
+            className="pointer-events-none absolute max-w-none"
+            style={{
+              width: visual.w,
+              height: visual.h,
+              left: `calc(50% - ${visual.cx}px)`,
+              top: 0,
+            }}
+          />
         ) : (
-          <span className="mt-16 text-6xl">{track.icon}</span>
+          <span className="absolute inset-0 flex items-center justify-center text-6xl">
+            {track.icon}
+          </span>
         )}
       </div>
 
-      <div className="flex flex-1 flex-col items-start gap-[18px] p-7">
+      <div className="relative flex flex-1 flex-col items-start gap-[18px] p-7">
         <p className="text-[11px] font-medium uppercase text-link">{track.tagline}</p>
         <h3 className="text-[28px] font-bold leading-[1.12] text-ink">{track.name}</h3>
         <p className="text-base leading-[1.55] text-muted">{track.description}</p>

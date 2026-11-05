@@ -1,16 +1,48 @@
 import type { ComponentType } from 'react'
-import { formatMeta } from '../../../data/overviewContent'
 import { useFetch } from '../../../hooks/useFetch'
 import type { LearningFormat } from '../../../types'
+import {
+  LightbulbIcon,
+  ValueBookIcon,
+  ValueCodeIcon,
+  ValuePeopleIcon,
+} from '../../ui/AboutIcons'
 import AsyncContent from '../../ui/AsyncContent'
-import { BookIcon, CodeIcon, SparkIcon, UsersIcon } from '../../ui/Icons'
 import SectionLabel from '../../ui/SectionLabel'
 
-const icons: Record<string, ComponentType<{ className?: string }>> = {
-  'study-groups': BookIcon,
-  'hands-on-workshops': CodeIcon,
-  'project-circles': UsersIcon,
-  'knowledge-sharing': SparkIcon,
+const formatMeta: Record<
+  string,
+  {
+    order: number
+    bestFor: string
+    tint: string
+    Icon: ComponentType<{ className?: string }>
+  }
+> = {
+  'study-groups': {
+    order: 1,
+    bestFor: 'Learning the fundamentals',
+    tint: 'bg-tint-blue',
+    Icon: ValueBookIcon,
+  },
+  'hands-on-workshops': {
+    order: 2,
+    bestFor: 'Trying something new',
+    tint: 'bg-tint-green',
+    Icon: ValueCodeIcon,
+  },
+  'project-circles': {
+    order: 3,
+    bestFor: 'Putting skills into practice',
+    tint: 'bg-tint-yellow',
+    Icon: ValuePeopleIcon,
+  },
+  'knowledge-sharing': {
+    order: 4,
+    bestFor: 'Exchanging perspectives',
+    tint: 'bg-tint-red',
+    Icon: LightbulbIcon,
+  },
 }
 
 const byFigmaOrder = (a: LearningFormat, b: LearningFormat) =>
@@ -37,7 +69,7 @@ export default function FormatsOverview() {
             <div className="grid gap-6 md:grid-cols-2">
               {[...formats].sort(byFigmaOrder).map((f) => {
                 const meta = formatMeta[f.id]
-                const Icon = icons[f.id] ?? SparkIcon
+                const Icon = meta?.Icon
                 return (
                   <article key={f.id} className="flex gap-6 rounded-3xl bg-white p-7">
                     <div
@@ -45,13 +77,15 @@ export default function FormatsOverview() {
                         meta?.tint ?? 'bg-tint-blue'
                       }`}
                     >
-                      <Icon className="size-6 text-link" />
+                      {Icon && <Icon className="text-link" />}
                     </div>
                     <div className="flex flex-col gap-3.5">
                       <h3 className="text-[27px] font-bold leading-[1.12] text-ink">{f.name}</h3>
                       <p className="text-base leading-[1.55] text-muted">{f.description}</p>
                       {meta && (
-                        <p className="text-[13px] font-medium text-link">Best for • {meta.bestFor}</p>
+                        <p className="text-[13px] font-medium text-link">
+                          Best for • {meta.bestFor}
+                        </p>
                       )}
                     </div>
                   </article>

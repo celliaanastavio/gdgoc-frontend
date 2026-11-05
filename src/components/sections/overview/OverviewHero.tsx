@@ -1,5 +1,7 @@
-import researchArt from '../../../assets/track-research.svg'
+import heroArt from '../../../assets/overview-hero-art.png'
 import SectionLabel from '../../ui/SectionLabel'
+
+const SCALE = 1
 
 export default function OverviewHero() {
   return (
@@ -16,7 +18,20 @@ export default function OverviewHero() {
           Grow through practice and the people around you.
         </p>
       </div>
-      <img src={researchArt} alt="" className="size-[220px] shrink-0 lg:size-[280px]" />
+
+      <div className="relative hidden h-[280px] w-[264px] shrink-0 lg:block">
+        <img
+          src={heroArt}
+          alt=""
+          className="pointer-events-none absolute max-w-none"
+          style={{
+            left: 127.87 - 292.47 * SCALE,
+            top: 130.87 - 142.87 * SCALE,
+            width: 451 * SCALE,
+            height: 496 * SCALE,
+          }}
+        />
+      </div>
     </section>
   )
 }

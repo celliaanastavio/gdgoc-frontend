@@ -2,7 +2,7 @@ import heroArt from '../../assets/hero-art.png'
 import Button from '../ui/Button'
 import SectionLabel from '../ui/SectionLabel'
 
-const dots = ['bg-brand-red', 'bg-brand-yellow', 'bg-brand-green', 'bg-brand-blue']
+const dots = ['#EA4335', '#F9AB00', '#34A853', '#4284F4']
 
 export default function Hero() {
   return (
@@ -30,11 +30,12 @@ export default function Hero() {
         </div>
 
         <div className="flex items-center gap-2.5 text-sm text-muted">
-          <span className="flex">
+          <span className="flex" aria-hidden="true">
             {dots.map((color, i) => (
               <span
                 key={color}
-                className={`size-4 rounded-full ${color} ${i > 0 ? '-ml-[3px]' : ''}`}
+                className={`size-4 rounded-full border-2 border-white ${i > 0 ? '-ml-[3px]' : ''}`}
+                style={{ backgroundColor: color }}
               />
             ))}
           </span>

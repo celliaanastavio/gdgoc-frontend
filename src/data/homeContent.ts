@@ -1,5 +1,5 @@
 import type { ComponentType } from 'react'
-import { BookIcon, CodeIcon, UsersIcon } from '../components/ui/Icons'
+import { ValueBookIcon, ValueCodeIcon, ValuePeopleIcon } from '../components/ui/AboutIcons'
 
 export interface LearningFormatCard {
   title: string
@@ -14,21 +14,21 @@ export const learningFormats: LearningFormatCard[] = [
     description:
       'Work through foundations in peer learning sessions. Bring your questions; leave with a next step.',
     detail: 'Study groups & guided practice',
-    Icon: BookIcon,
+    Icon: ValueBookIcon,
   },
   {
     title: 'Try it hands-on',
     description:
       'Explore a tool or technique in a workshop, then put it to work in a small experiment.',
     detail: 'Workshops & technical sessions',
-    Icon: CodeIcon,
+    Icon: ValueCodeIcon,
   },
   {
     title: 'Share the process',
     description:
       'Exchange feedback, explain your decisions, and learn from different ways of thinking.',
     detail: 'Project circles & sharing sessions',
-    Icon: UsersIcon,
+    Icon: ValuePeopleIcon,
   },
 ]
 
