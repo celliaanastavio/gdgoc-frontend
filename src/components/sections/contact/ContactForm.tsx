@@ -1,4 +1,5 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
+import { useLocalStorage } from '../../../hooks/useLocalStorage'
 import type { InquiryCategory } from '../../../types'
 import ArrowIcon from '../../ui/ArrowIcon'
 import { ArrowUpRightGlyph } from '../../ui/InquiryGlyphs'
@@ -9,39 +10,41 @@ interface Props {
   onCategoryChange: (id: string) => void
 }
 
-interface Values {
+interface Draft {
   firstName: string
   lastName: string
   email: string
   organization: string
   subject: string
   message: string
-  consent: boolean
 }
 
-type Errors = Partial<Record<'firstName' | 'email' | 'category' | 'subject' | 'message' | 'consent', string>>
+type Errors = Partial<
+  Record<'firstName' | 'email' | 'category' | 'subject' | 'message' | 'consent', string>
+>
 
-const emptyValues: Values = {
+const DRAFT_STORAGE_KEY = 'gdgoc:contact-draft'
+
+const emptyDraft: Draft = {
   firstName: '',
   lastName: '',
   email: '',
   organization: '',
   subject: '',
   message: '',
-  consent: false,
 }
 
 const emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-function validate(v: Values, categoryId: string): Errors {
+function validate(draft: Draft, consent: boolean, categoryId: string): Errors {
   const errors: Errors = {}
-  if (!v.firstName.trim()) errors.firstName = 'First name is required.'
-  if (!v.email.trim()) errors.email = 'Email address is required.'
-  else if (!emailPattern.test(v.email)) errors.email = 'Please enter a valid email address.'
+  if (!draft.firstName.trim()) errors.firstName = 'First name is required.'
+  if (!draft.email.trim()) errors.email = 'Email address is required.'
+  else if (!emailPattern.test(draft.email)) errors.email = 'Please enter a valid email address.'
   if (!categoryId) errors.category = 'Please choose a category.'
-  if (!v.subject.trim()) errors.subject = 'Subject is required.'
-  if (!v.message.trim()) errors.message = 'Please tell us a little about your question.'
-  if (!v.consent) errors.consent = 'Please agree before sending.'
+  if (!draft.subject.trim()) errors.subject = 'Subject is required.'
+  if (!draft.message.trim()) errors.message = 'Please tell us a little about your question.'
+  if (!consent) errors.consent = 'Please agree before sending.'
   return errors
 }
 
@@ -51,7 +54,6 @@ const inputBase =
 const inputClass = (hasError: boolean) =>
   `${inputBase} text-ink ${hasError ? 'border-brand-red' : 'border-line'}`
 
-// Dropdown
 const selectClass = (hasError: boolean) =>
   `${inputBase} text-muted ${hasError ? 'border-brand-red' : 'border-line'}`
 
@@ -82,26 +84,40 @@ function Field({
 }
 
 export default function ContactForm({ categories, categoryId, onCategoryChange }: Props) {
-  const [values, setValues] = useState<Values>(emptyValues)
+  const [storedDraft, setDraft] = useLocalStorage<Draft>(DRAFT_STORAGE_KEY, emptyDraft)
+  // 
+  const draft: Draft = { ...emptyDraft, ...storedDraft }
+
+  // Persetujuan tidak disimpan: pengguna harus menyetujui ulang setiap kali mengirim
+  const [consent, setConsent] = useState(false)
   const [errors, setErrors] = useState<Errors>({})
   const [status, setStatus] = useState<'idle' | 'sending' | 'success'>('idle')
 
-  function update<K extends keyof Values>(key: K, value: Values[K]) {
-    setValues((prev) => ({ ...prev, [key]: value }))
+  const hasDraft = Object.values(draft).some(
+    (value) => typeof value === 'string' && value.trim() !== '',
+  )
+
+  function clearSuccess() {
     if (status === 'success') setStatus('idle')
+  }
+
+  function updateField(field: keyof Draft, value: string) {
+    setDraft((prev) => ({ ...emptyDraft, ...prev, [field]: value }))
+    clearSuccess()
   }
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
-    const found = validate(values, categoryId)
+    const found = validate(draft, consent, categoryId)
     setErrors(found)
     if (Object.keys(found).length > 0) return
 
     setStatus('sending')
-    // API belum punya endpoint POST, jadi pengiriman disimulasikan
+    // API belum memiliki endpoint POST
     await new Promise((resolve) => setTimeout(resolve, 800))
     setStatus('success')
-    setValues(emptyValues)
+    setDraft(emptyDraft)
+    setConsent(false)
   }
 
   return (
@@ -114,15 +130,18 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
         <h2 className="text-[30px] font-bold leading-[1.12] text-ink">Send us a message</h2>
         <ArrowUpRightGlyph className="size-[15.7px] overflow-visible text-link" />
       </div>
-      <p className="text-[13px] text-muted">Fields marked * are required.</p>
+      <p className="text-[13px] text-muted">
+        Fields marked * are required.
+        {hasDraft && ' Your draft is saved on this device until you send it.'}
+      </p>
 
       <div className="grid gap-6 sm:grid-cols-2 sm:gap-5">
         <Field id="firstName" label="First name *" error={errors.firstName}>
           <input
             id="firstName"
             type="text"
-            value={values.firstName}
-            onChange={(e) => update('firstName', e.target.value)}
+            value={draft.firstName}
+            onChange={(e) => updateField('firstName', e.target.value)}
             placeholder="Your first name"
             className={`${inputClass(!!errors.firstName)} h-[54px]`}
           />
@@ -131,8 +150,8 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
           <input
             id="lastName"
             type="text"
-            value={values.lastName}
-            onChange={(e) => update('lastName', e.target.value)}
+            value={draft.lastName}
+            onChange={(e) => updateField('lastName', e.target.value)}
             placeholder="Your last name"
             className={`${inputClass(false)} h-[54px]`}
           />
@@ -143,8 +162,8 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
         <input
           id="email"
           type="email"
-          value={values.email}
-          onChange={(e) => update('email', e.target.value)}
+          value={draft.email}
+          onChange={(e) => updateField('email', e.target.value)}
           placeholder="Where we can reply to you"
           className={`${inputClass(!!errors.email)} h-[54px]`}
         />
@@ -154,8 +173,8 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
         <input
           id="organization"
           type="text"
-          value={values.organization}
-          onChange={(e) => update('organization', e.target.value)}
+          value={draft.organization}
+          onChange={(e) => updateField('organization', e.target.value)}
           placeholder="Where you study or work (optional)"
           className={`${inputClass(false)} h-[54px]`}
         />
@@ -196,8 +215,8 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
         <input
           id="subject"
           type="text"
-          value={values.subject}
-          onChange={(e) => update('subject', e.target.value)}
+          value={draft.subject}
+          onChange={(e) => updateField('subject', e.target.value)}
           placeholder="A short introduction to your question"
           className={`${inputClass(!!errors.subject)} h-[54px]`}
         />
@@ -206,61 +225,60 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
       <Field id="message" label="Your message *" error={errors.message}>
         <textarea
           id="message"
-          value={values.message}
-          onChange={(e) => update('message', e.target.value)}
+          value={draft.message}
+          onChange={(e) => updateField('message', e.target.value)}
           placeholder="Tell us a little about your question or idea…"
           className={`${inputClass(!!errors.message)} min-h-[146px] resize-none py-4`}
         />
       </Field>
 
-    <div className="flex flex-col gap-2">
+      <div className="flex flex-col gap-2">
         <label className="flex cursor-pointer items-start gap-3 text-[13px] leading-5 text-muted">
-            <input
+          <input
             type="checkbox"
-            checked={values.consent}
-            onChange={(e) => update('consent', e.target.checked)}
+            checked={consent}
+            onChange={(e) => {
+              setConsent(e.target.checked)
+              clearSuccess()
+            }}
             className="peer sr-only"
-            />
-            <svg
+          />
+          <svg
             viewBox="0 0 24 24"
             fill="none"
             aria-hidden="true"
             className={`size-6 shrink-0 rounded peer-focus-visible:outline peer-focus-visible:outline-2 peer-focus-visible:outline-brand-blue ${
-                errors.consent
-                ? 'text-brand-red'
-                : values.consent
-                    ? 'text-brand-blue'
-                    : 'text-[#5F6368]'
+              errors.consent ? 'text-brand-red' : consent ? 'text-brand-blue' : 'text-[#5F6368]'
             }`}
-            >
+          >
             <rect
-                x="3.75"
-                y="3.75"
-                width="16.5"
-                height="16.5"
-                rx="4"
-                stroke="currentColor"
-                strokeWidth="1.5"
-                fill={values.consent ? 'currentColor' : 'none'}
+              x="3.75"
+              y="3.75"
+              width="16.5"
+              height="16.5"
+              rx="4"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              fill={consent ? 'currentColor' : 'none'}
             />
-            {values.consent && (
-                <path
+            {consent && (
+              <path
                 d="M8.25 12.25L10.9 14.9L15.9 9.5"
                 stroke="white"
                 strokeWidth="1.5"
                 strokeLinecap="round"
                 strokeLinejoin="round"
-                />
+              />
             )}
-            </svg>
-            I agree that the information I share can be used to respond to this inquiry.
+          </svg>
+          I agree that the information I share can be used to respond to this inquiry.
         </label>
         {errors.consent && (
-            <p role="alert" className="text-xs text-brand-red">
+          <p role="alert" className="text-xs text-brand-red">
             {errors.consent}
-            </p>
+          </p>
         )}
-    </div>
+      </div>
 
       <div className="flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
         <button
@@ -277,10 +295,7 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
       </div>
 
       {status === 'success' && (
-        <p
-          role="status"
-          className="rounded-lg bg-tint-green px-4 py-3 text-sm font-medium text-ink"
-        >
+        <p role="status" className="rounded-lg bg-tint-green px-4 py-3 text-sm font-medium text-ink">
           Thanks for reaching out! We’ve received your message and will get back to you soon.
         </p>
       )}
