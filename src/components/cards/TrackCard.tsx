@@ -6,6 +6,7 @@ import TextLink from '../ui/TextLink'
 
 interface Props {
   track: Track
+  highlighted?: boolean
 }
 
 
@@ -15,11 +16,15 @@ const visuals: Record<string, { tint: string; art: string; w: number; h: number;
   development: { tint: 'bg-tint-green', art: developmentArt, w: 347, h: 452, cx: 198.6 },
 }
 
-export default function TrackCard({ track }: Props) {
+export default function TrackCard({ track, highlighted = false }: Props) {
   const visual = visuals[track.id]
 
   return (
-    <article className="flex h-full flex-col overflow-hidden rounded-3xl border border-line bg-white">
+    <article
+      className={`flex h-full flex-col overflow-hidden rounded-3xl border bg-white ${
+        highlighted ? 'border-brand-blue ring-2 ring-brand-blue' : 'border-line'
+      }`}
+    >
       <div className={`relative h-[232px] shrink-0 ${visual?.tint ?? 'bg-surface'}`}>
         {visual ? (
           <img
