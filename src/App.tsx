@@ -5,6 +5,7 @@ import HomePage from './pages/HomePage'
 import AboutPage from './pages/AboutPage'
 import OverviewPage from './pages/OverviewPage'
 import ContactPage from './pages/ContactPage'
+import ExplorePage from './pages/ExplorePage'
 
 
 export default function App() {
@@ -17,9 +18,10 @@ export default function App() {
           <Route path="/overview" element={<OverviewPage />} />
           <Route path="/about" element={<AboutPage />} /> 
           <Route path="/contact" element={<ContactPage />} />
+          <Route path="/explore" element={<ExplorePage />} />
           <Route
             path="*"
-            element={<p className="py-16 text-center text-gray-500">Halaman belum tersedia.</p>}
+            element={<p className="py-16 text-center text-gray-500">Page not found.</p>}
           />
         </Routes>
       </main>
