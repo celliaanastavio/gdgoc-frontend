@@ -16,12 +16,12 @@ export function useFetch<T>(path: string) {
         const res = await fetch(`${API_BASE_URL}${path}`, {
           signal: controller.signal,
         })
-        if (!res.ok) throw new Error(`Gagal memuat data (${res.status})`)
+        if (!res.ok) throw new Error(`Failed to load data (${res.status})`)
         const json: ApiResponse<T> = await res.json()
         setData(json.data)
       } catch (err) {
         if (err instanceof DOMException && err.name === 'AbortError') return
-        setError(err instanceof Error ? err.message : 'Terjadi kesalahan')
+        setError(err instanceof Error ? err.message : 'Something went wrong')
       } finally {
         if (!controller.signal.aborted) setLoading(false)
       }

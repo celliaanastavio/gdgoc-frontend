@@ -33,7 +33,7 @@ export default function FaqSection() {
       <div className="flex min-w-0 flex-1 flex-col gap-6">
         {loading && <Spinner />}
         {error && <ErrorMessage message={error} onRetry={refetch} />}
-        {!loading && !error && faqs.length === 0 && <EmptyState message="Belum ada pertanyaan." />}
+        {!loading && !error && faqs.length === 0 && <EmptyState message="No questions yet." />}
         {!loading &&
           !error &&
           faqs.map((faq) => {
