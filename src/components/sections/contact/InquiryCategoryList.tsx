@@ -36,7 +36,7 @@ export default function InquiryCategoryList({ categories, activeId, onSelect }: 
               active ? 'border-transparent bg-tint-blue' : 'border-line hover:bg-surface'
             }`}
           >
-            <span className="flex h-[30px] w-[27px] shrink-0 items-center justify-center text-link">
+            <span className="flex h-[30px] w-[27px] shrink-0 items-center justify-center text-link [&>svg]:overflow-visible">
               {Glyph ? <Glyph /> : <span className="text-[25px] font-medium">{c.icon}</span>}
             </span>
             <span className="flex min-w-0 flex-1 flex-col gap-1.5">

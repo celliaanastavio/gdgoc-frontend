@@ -10,7 +10,7 @@ export default function PromiseBar() {
       <div className="mx-auto flex max-w-[1440px] flex-wrap justify-between gap-x-8 gap-y-3 px-6 py-[26px] md:px-16 xl:px-24">
         {promises.map((item) => (
           <p key={item.label} className="flex items-center gap-3.5 text-lg font-medium text-ink">
-            <span className={`size-2 rounded-[2px] ${item.color}`} />
+            <span className={`size-2 shrink-0 ${item.color}`} aria-hidden="true" />
             {item.label}
           </p>
         ))}
