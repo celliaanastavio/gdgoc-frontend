@@ -1,7 +1,6 @@
 import { useState, type FormEvent, type ReactNode } from 'react'
 import type { InquiryCategory } from '../../../types'
 import ArrowIcon from '../../ui/ArrowIcon'
-import { ChevronIcon } from '../../ui/Icons'
 import { ArrowUpRightGlyph } from '../../ui/InquiryGlyphs'
 
 interface Props {
@@ -47,10 +46,14 @@ function validate(v: Values, categoryId: string): Errors {
 }
 
 const inputBase =
-  'w-full rounded-lg border bg-white px-4 text-[15px] text-ink placeholder:text-muted focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20'
+  'w-full rounded-lg border bg-white px-4 text-[15px] placeholder:text-muted focus:border-brand-blue focus:outline-none focus:ring-2 focus:ring-brand-blue/20'
 
 const inputClass = (hasError: boolean) =>
-  `${inputBase} ${hasError ? 'border-brand-red' : 'border-line'}`
+  `${inputBase} text-ink ${hasError ? 'border-brand-red' : 'border-line'}`
+
+// Dropdown
+const selectClass = (hasError: boolean) =>
+  `${inputBase} text-muted ${hasError ? 'border-brand-red' : 'border-line'}`
 
 function Field({
   id,
@@ -109,7 +112,7 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
     >
       <div className="flex items-center justify-between gap-4">
         <h2 className="text-[30px] font-bold leading-[1.12] text-ink">Send us a message</h2>
-        <ArrowUpRightGlyph className="size-[15.7px] text-link" />
+        <ArrowUpRightGlyph className="size-[15.7px] overflow-visible text-link" />
       </div>
       <p className="text-[13px] text-muted">Fields marked * are required.</p>
 
@@ -164,7 +167,7 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
             id="category"
             value={categoryId}
             onChange={(e) => onCategoryChange(e.target.value)}
-            className={`${inputClass(!!errors.category)} h-[54px] appearance-none pr-12`}
+            className={`${selectClass(!!errors.category)} h-[54px] appearance-none pr-12`}
           >
             {categories.map((c) => (
               <option key={c.id} value={c.id}>
@@ -172,7 +175,20 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
               </option>
             ))}
           </select>
-          <ChevronIcon className="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-muted" />
+          <svg
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+            className="pointer-events-none absolute right-4 top-1/2 size-5 -translate-y-1/2 text-link"
+          >
+            <path
+              d="M3.95801 8.125L9.11634 13.2833C9.35072 13.5174 9.66842 13.6489 9.99967 13.6489C10.3309 13.6489 10.6486 13.5174 10.883 13.2833L16.0413 8.125"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
         </div>
       </Field>
 
@@ -193,7 +209,7 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
           value={values.message}
           onChange={(e) => update('message', e.target.value)}
           placeholder="Tell us a little about your question or idea…"
-          className={`${inputClass(!!errors.message)} min-h-[146px] resize-y py-4`}
+          className={`${inputClass(!!errors.message)} min-h-[146px] resize-none py-4`}
         />
       </Field>
 
