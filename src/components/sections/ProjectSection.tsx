@@ -12,14 +12,13 @@ export default function ProjectSection() {
 
         <div className="mt-6 flex flex-col gap-6 rounded-2xl border border-line bg-white p-[26px]">
           <div className="flex gap-1.5">
-            <span className="size-2 rounded-full bg-brand-red" />
-            <span className="size-2 rounded-full bg-brand-yellow" />
-            <span className="size-2 rounded-full bg-brand-green" />
+            <span className="size-2 shrink-0 aspect-square rounded-full bg-brand-red" />
+            <span className="size-2 shrink-0 aspect-square rounded-full bg-brand-yellow" />
+            <span className="size-2 shrink-0 aspect-square rounded-full bg-brand-green" />
           </div>
           <p className="text-2xl font-bold leading-[1.12] text-ink sm:text-[32px]">
             A little less friction.
-            <br />
-            A better campus day.
+            <br />A better campus day.
           </p>
           <div className="flex gap-3">
             <span className="flex-1 rounded-xl bg-tint-blue p-4 text-[13px] font-bold text-black">
@@ -52,8 +51,8 @@ export default function ProjectSection() {
           Small, familiar problems can be the beginning of meaningful work.
         </p>
         <p className="text-base leading-[1.55] text-muted">
-          Bring research, design, and development together. Try an idea, get feedback, and make
-          the next version better.
+          Bring research, design, and development together. Try an idea, get feedback, and make the
+          next version better.
         </p>
         <TextLink to="/overview">Explore project-based learning</TextLink>
       </div>
