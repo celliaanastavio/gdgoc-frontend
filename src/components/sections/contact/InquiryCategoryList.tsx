@@ -1,11 +1,6 @@
 import type { ComponentType } from 'react'
 import type { InquiryCategory } from '../../../types'
-import {
-  ArrowUpRightGlyph,
-  DiamondGlyph,
-  PlusGlyph,
-  QuestionGlyph,
-} from '../../ui/InquiryGlyphs'
+import { ArrowUpRightGlyph, DiamondGlyph, PlusGlyph, QuestionGlyph } from '../../ui/InquiryGlyphs'
 
 const glyphs: Record<string, ComponentType<{ className?: string }>> = {
   'joining-learning': ArrowUpRightGlyph,

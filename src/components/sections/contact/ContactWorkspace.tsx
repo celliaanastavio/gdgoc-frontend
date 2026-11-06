@@ -34,11 +34,7 @@ export default function ContactWorkspace() {
         <CommunityUpdates />
       </div>
 
-      <ContactForm
-        categories={categories}
-        categoryId={activeId}
-        onCategoryChange={setSelectedId}
-      />
+      <ContactForm categories={categories} categoryId={activeId} onCategoryChange={setSelectedId} />
     </section>
   )
 }

@@ -9,11 +9,18 @@ export default function OutcomesTable() {
         From an interest to something you can show.
       </h2>
       <div className="overflow-hidden rounded-[20px] border border-line">
-        <div className={`hidden bg-surface px-7 py-5 text-xs font-medium text-muted md:grid ${cols}`}>
-          <p>Pathway</p><p>What you can practice</p><p>A possible outcome</p>
+        <div
+          className={`hidden bg-surface px-7 py-5 text-xs font-medium text-muted md:grid ${cols}`}
+        >
+          <p>Pathway</p>
+          <p>What you can practice</p>
+          <p>A possible outcome</p>
         </div>
         {outcomes.map((o) => (
-          <div key={o.pathway} className={`grid gap-2 border-t border-line p-7 first:border-t-0 md:first:border-t ${cols}`}>
+          <div
+            key={o.pathway}
+            className={`grid gap-2 border-t border-line p-7 first:border-t-0 md:first:border-t ${cols}`}
+          >
             <p className="text-lg font-medium text-ink">{o.pathway}</p>
             <p className="text-base leading-[1.55] text-muted">{o.practice}</p>
             <p className="text-base leading-[1.55] text-muted">{o.outcome}</p>
@@ -21,7 +28,8 @@ export default function OutcomesTable() {
         ))}
       </div>
       <p className="text-[13px] text-muted">
-        Illustrative learning outcomes. Topics and opportunities are shared through community updates.
+        Illustrative learning outcomes. Topics and opportunities are shared through community
+        updates.
       </p>
     </section>
   )

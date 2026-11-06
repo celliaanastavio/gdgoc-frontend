@@ -18,8 +18,8 @@ export default function Hero() {
 
         <p className="text-lg leading-[1.55] text-muted md:text-[21px]">
           A place for curious minds at{' '}
-          <strong className="font-bold">Universitas Gadjah Mada</strong> to learn,
-          connect, and build technology that matters.
+          <strong className="font-bold">Universitas Gadjah Mada</strong> to learn, connect, and
+          build technology that matters.
         </p>
 
         <div className="flex flex-wrap gap-3">

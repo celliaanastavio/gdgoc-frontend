@@ -85,7 +85,7 @@ function Field({
 
 export default function ContactForm({ categories, categoryId, onCategoryChange }: Props) {
   const [storedDraft, setDraft] = useLocalStorage<Draft>(DRAFT_STORAGE_KEY, emptyDraft)
-  // 
+  //
   const draft: Draft = { ...emptyDraft, ...storedDraft }
 
   // Persetujuan tidak disimpan: pengguna harus menyetujui ulang setiap kali mengirim
@@ -295,7 +295,10 @@ export default function ContactForm({ categories, categoryId, onCategoryChange }
       </div>
 
       {status === 'success' && (
-        <p role="status" className="rounded-lg bg-tint-green px-4 py-3 text-sm font-medium text-ink">
+        <p
+          role="status"
+          className="rounded-lg bg-tint-green px-4 py-3 text-sm font-medium text-ink"
+        >
           Thanks for reaching out! We’ve received your message and will get back to you soon.
         </p>
       )}

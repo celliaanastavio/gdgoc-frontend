@@ -15,7 +15,8 @@ export default function RolesSection() {
           There’s more than one way to contribute.
         </h2>
         <p className="text-lg leading-[1.55] text-muted">
-          You can be learning one day and helping someone else the next. A community grows through both.
+          You can be learning one day and helping someone else the next. A community grows through
+          both.
         </p>
       </div>
 

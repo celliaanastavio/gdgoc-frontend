@@ -28,16 +28,16 @@ export default function PurposeSection() {
         </div>
         <div className="flex flex-1 flex-col gap-6 leading-[1.55]">
           <p className="text-2xl text-ink">
-            Learning feels different when there’s someone to exchange ideas with, a problem you
-            care about, and the space to give it a try.
+            Learning feels different when there’s someone to exchange ideas with, a problem you care
+            about, and the space to give it a try.
           </p>
           <p className="text-lg text-muted">
             That’s the spirit of Google Developer Groups on Campus at UGM. We create room for
             students to explore technology, develop practical skills, and learn from one another.
           </p>
           <p className="text-lg text-muted">
-            Our campus is the starting point. The questions we ask and the things we build can
-            reach beyond it.
+            Our campus is the starting point. The questions we ask and the things we build can reach
+            beyond it.
           </p>
         </div>
       </div>

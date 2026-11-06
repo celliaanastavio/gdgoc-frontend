@@ -18,8 +18,8 @@ export default function IntroSection() {
 
       <div className="flex min-w-0 flex-1 flex-col items-start gap-6">
         <p className="text-lg leading-[1.55] text-muted md:text-[21px]">
-          Google Developer Groups on Campus, Universitas Gadjah Mada brings students together
-          around one simple idea: we can go <strong className="font-bold">further</strong> when we{' '}
+          Google Developer Groups on Campus, Universitas Gadjah Mada brings students together around
+          one simple idea: we can go <strong className="font-bold">further</strong> when we{' '}
           <strong className="font-bold">learn</strong> with each other.
         </p>
         <p className="text-lg leading-[1.55] text-muted">

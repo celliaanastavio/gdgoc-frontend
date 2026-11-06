@@ -16,9 +16,7 @@ export function parseSort(value: string | null): SortOrder {
 
 /** Semua skill unik dari seluruh track, urut abjad. */
 export function collectSkills(tracks: Track[]): string[] {
-  return [...new Set(tracks.flatMap((track) => track.skills))].sort((a, b) =>
-    a.localeCompare(b),
-  )
+  return [...new Set(tracks.flatMap((track) => track.skills))].sort((a, b) => a.localeCompare(b))
 }
 
 export function applyTrackFilters(tracks: Track[], filters: TrackFilters): Track[] {

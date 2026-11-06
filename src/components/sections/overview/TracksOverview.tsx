@@ -34,8 +34,8 @@ export default function TracksOverview() {
           Three ways in. Plenty of ways forward.
         </h2>
         <p className="text-lg leading-[1.55] text-muted">
-          These pathways are starting points, not boxes. Follow one deeply or bring different
-          skills together.
+          These pathways are starting points, not boxes. Follow one deeply or bring different skills
+          together.
         </p>
       </div>
 

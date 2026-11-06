@@ -1,12 +1,7 @@
 import type { ComponentType } from 'react'
 import { useFetch } from '../../../hooks/useFetch'
 import type { LearningFormat } from '../../../types'
-import {
-  LightbulbIcon,
-  ValueBookIcon,
-  ValueCodeIcon,
-  ValuePeopleIcon,
-} from '../../ui/AboutIcons'
+import { LightbulbIcon, ValueBookIcon, ValueCodeIcon, ValuePeopleIcon } from '../../ui/AboutIcons'
 import AsyncContent from '../../ui/AsyncContent'
 import SectionLabel from '../../ui/SectionLabel'
 

@@ -16,7 +16,8 @@ export default function StartingPoint() {
         <div className="flex flex-col items-start gap-5">
           <p className="text-lg leading-[1.55] text-muted">
             You don’t need a finished portfolio or the perfect track choice. Pick a topic you’re
-            curious about. If you’re unsure, tell us what interests you and we can start a conversation.
+            curious about. If you’re unsure, tell us what interests you and we can start a
+            conversation.
           </p>
           <TextLink to="/contact">Ask about getting started</TextLink>
         </div>

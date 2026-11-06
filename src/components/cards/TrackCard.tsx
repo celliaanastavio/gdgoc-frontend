@@ -9,7 +9,6 @@ interface Props {
   highlighted?: boolean
 }
 
-
 const visuals: Record<string, { tint: string; art: string; w: number; h: number; cx: number }> = {
   'research-discovery': { tint: 'bg-tint-blue', art: researchArt, w: 342, h: 443, cx: 198.6 },
   'design-creativity': { tint: 'bg-tint-yellow', art: designArt, w: 337, h: 389, cx: 196 },

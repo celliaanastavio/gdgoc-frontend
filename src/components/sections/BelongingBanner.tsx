@@ -8,12 +8,11 @@ export default function BelongingBanner() {
         <div className="flex min-w-0 flex-1 flex-col gap-4">
           <h2 className="text-3xl font-bold leading-[1.12] text-ink md:text-[40px]">
             Different majors. Different starting points.
-            <br />
-            A place for all of them.
+            <br />A place for all of them.
           </h2>
           <p className="text-lg leading-[1.55] text-muted">
-            You don’t have to be the most experienced person in the room. Curiosity, kindness,
-            and a willingness to learn are a good place to start.
+            You don’t have to be the most experienced person in the room. Curiosity, kindness, and a
+            willingness to learn are a good place to start.
           </p>
         </div>
       </div>

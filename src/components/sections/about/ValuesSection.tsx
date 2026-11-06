@@ -1,12 +1,7 @@
 import type { ComponentType } from 'react'
 import { useFetch } from '../../../hooks/useFetch'
 import type { Value } from '../../../types'
-import {
-  ValueBookIcon,
-  ValueCodeIcon,
-  ValueHeartIcon,
-  ValuePeopleIcon,
-} from '../../ui/AboutIcons'
+import { ValueBookIcon, ValueCodeIcon, ValueHeartIcon, ValuePeopleIcon } from '../../ui/AboutIcons'
 import AsyncContent from '../../ui/AsyncContent'
 import SectionLabel from '../../ui/SectionLabel'
 
@@ -41,7 +36,9 @@ export default function ValuesSection() {
                 >
                   <span className="h-1 w-9 rounded-sm" style={{ backgroundColor: v.color }} />
                   {Icon && <Icon className="text-link" />}
-                  <h3 className="text-2xl font-bold leading-[1.12] tracking-[-0.4px] text-ink">{v.title}</h3>
+                  <h3 className="text-2xl font-bold leading-[1.12] tracking-[-0.4px] text-ink">
+                    {v.title}
+                  </h3>
                   <p className="text-base leading-[1.55] text-muted">{v.description}</p>
                 </article>
               )

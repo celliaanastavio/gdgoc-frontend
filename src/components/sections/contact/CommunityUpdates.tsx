@@ -15,8 +15,8 @@ export default function CommunityUpdates() {
         Looking for community updates?
       </h3>
       <p className="text-base leading-[1.55] text-muted">
-        Follow <strong className="font-bold">{handle}</strong> for learning opportunities and
-        what’s happening in the community.
+        Follow <strong className="font-bold">{handle}</strong> for learning opportunities and what’s
+        happening in the community.
       </p>
       <a
         href={url}

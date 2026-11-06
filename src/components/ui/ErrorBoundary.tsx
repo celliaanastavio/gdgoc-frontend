@@ -42,8 +42,8 @@ export default class ErrorBoundary extends Component<Props, State> {
         </svg>
         <h2 className="text-3xl font-bold leading-[1.12] text-ink">Something went wrong</h2>
         <p className="text-base leading-[1.55] text-muted">
-          An unexpected error occurred while displaying this page. You can try again or go
-          back to the home page.
+          An unexpected error occurred while displaying this page. You can try again or go back to
+          the home page.
         </p>
         <div className="flex flex-wrap justify-center gap-3">
           <button

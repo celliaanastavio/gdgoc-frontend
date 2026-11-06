@@ -11,7 +11,8 @@ export default function CommitmentBanner() {
           </h2>
           <p className="text-lg leading-[1.55] text-muted">
             We want every conversation and learning experience to be respectful, inclusive, and
-            constructive. Be kind, give credit, and make room for people who are just getting started.
+            constructive. Be kind, give credit, and make room for people who are just getting
+            started.
           </p>
         </div>
       </div>

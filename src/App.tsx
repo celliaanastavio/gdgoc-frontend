@@ -19,10 +19,7 @@ function AppRoutes() {
         <Route path="/about" element={<AboutPage />} />
         <Route path="/contact" element={<ContactPage />} />
         <Route path="/explore" element={<ExplorePage />} />
-        <Route
-          path="*"
-          element={<p className="py-16 text-center text-muted">Page not found.</p>}
-        />
+        <Route path="*" element={<p className="py-16 text-center text-muted">Page not found.</p>} />
       </Routes>
     </ErrorBoundary>
   )

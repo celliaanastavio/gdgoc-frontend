@@ -30,7 +30,11 @@ export default function Footer() {
           <div className="flex flex-col gap-3.5 md:w-[150px]">
             <p className="text-base font-bold text-ink">Explore</p>
             {nav?.map((item) => (
-              <Link key={item.href} to={item.href} className="text-[15px] text-muted hover:text-link">
+              <Link
+                key={item.href}
+                to={item.href}
+                className="text-[15px] text-muted hover:text-link"
+              >
                 {item.label}
               </Link>
             ))}

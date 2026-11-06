@@ -1,9 +1,6 @@
 import { useEffect, useState, type Dispatch, type SetStateAction } from 'react'
 
-export function useLocalStorage<T>(
-  key: string,
-  initialValue: T,
-): [T, Dispatch<SetStateAction<T>>] {
+export function useLocalStorage<T>(key: string, initialValue: T): [T, Dispatch<SetStateAction<T>>] {
   const [value, setValue] = useState<T>(() => {
     try {
       const raw = window.localStorage.getItem(key)

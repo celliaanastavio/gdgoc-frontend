@@ -14,8 +14,8 @@ export default function OverviewHero() {
           <span className="text-link">Build your own path.</span>
         </h1>
         <p className="text-lg leading-[1.55] text-muted md:text-[21px]">
-          Explore how research, creativity, and development connect. Start with one interest.
-          Grow through practice and the people around you.
+          Explore how research, creativity, and development connect. Start with one interest. Grow
+          through practice and the people around you.
         </p>
       </div>
 

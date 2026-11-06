@@ -109,11 +109,7 @@ export default function TrackFilterBar({
           tracks
         </p>
         {hasActiveFilters && (
-          <button
-            type="button"
-            onClick={onReset}
-            className="font-medium text-link hover:underline"
-          >
+          <button type="button" onClick={onReset} className="font-medium text-link hover:underline">
             Reset filters
           </button>
         )}

@@ -26,9 +26,7 @@ export default function Navbar() {
                 end={item.href === '/'}
                 className={({ isActive }) =>
                   `block rounded-full px-5 py-3.5 text-base ${
-                    isActive
-                      ? 'bg-tint-blue font-bold text-link'
-                      : 'text-muted hover:bg-surface'
+                    isActive ? 'bg-tint-blue font-bold text-link' : 'text-muted hover:bg-surface'
                   }`
                 }
               >

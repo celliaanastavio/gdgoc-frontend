@@ -1,7 +1,7 @@
-@import "tailwindcss";
+@import 'tailwindcss';
 
 @theme {
-  --font-sans: "Google Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-sans: 'Google Sans', ui-sans-serif, system-ui, sans-serif;
 
   --color-brand-blue: #4284f4;
   --color-brand-blue-light: #8ab4f8;
