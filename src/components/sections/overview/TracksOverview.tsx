@@ -3,6 +3,7 @@ import type { Track } from '../../../types'
 import TrackCard from '../../cards/TrackCard'
 import AsyncContent from '../../ui/AsyncContent'
 import SectionLabel from '../../ui/SectionLabel'
+import TextLink from '../../ui/TextLink'
 
 export default function TracksOverview() {
   const { data, loading, error, refetch } = useFetch<Track[]>('/tracks')
@@ -25,6 +26,9 @@ export default function TracksOverview() {
           </div>
         )}
       </AsyncContent>
+      <div>
+        <TextLink to="/explore">Search and filter all tracks</TextLink>
+      </div>
     </section>
   )
 }
