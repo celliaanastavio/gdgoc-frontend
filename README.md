@@ -2,6 +2,8 @@
 
 A responsive website for **Google Developer Groups on Campus, Universitas Gadjah Mada**, built for the **Front-End Technical Assignment** of the GDGoC UGM 2026/2027 open recruitment. The pages are sliced from the provided Figma design and fed dynamically by the GDGoC UGM REST API.
 
+**Live demo:** https://gdgoc-frontend.vercel.app
+
 **Author:** Cellia Anastavio · 25/556158/SV/25886
 
 ## Submission Links
@@ -9,14 +11,16 @@ A responsive website for **Google Developer Groups on Campus, Universitas Gadjah
 | Item | Link |
 |---|---|
 | Source code | https://github.com/celliaanastavio/gdgoc-frontend |
-| Live deployment | |
-| Video presentation (Google Drive) | |
+| Live deployment | https://gdgoc-frontend.vercel.app |
+| Video presentation (Google Drive) |  |
 | Figma design reference | [GDGoC – Open Recruitment](https://www.figma.com/design/yx06YRA90jBEX0Mmu64RBx/GDGoC-%E2%80%93-Open-Recruitment) |
 | API | https://gdgoc-ugm-api.vercel.app/api |
 
 ## Table of Contents
 
 - [Features](#features)
+- [Screenshots](#screenshots)
+- [Try It Yourself](#try-it-yourself)
 - [Tech Stack](#tech-stack)
 - [Getting Started](#getting-started)
 - [Available Scripts](#available-scripts)
@@ -28,6 +32,7 @@ A responsive website for **Google Developer Groups on Campus, Universitas Gadjah
 - [Deployment](#deployment)
 - [Known Limitations](#known-limitations)
 - [Git Workflow](#git-workflow)
+- [Acknowledgements](#acknowledgements)
 
 ## Features
 
@@ -43,10 +48,38 @@ Pages implemented from the Figma design (the assignment asks for at least two):
 
 Across all pages:
 
-- Content is fetched dynamically from the API, with **loading**, **error (with retry)** and **empty** states.
+- Content is fetched dynamically from the API, with **loading**, **error (with retry)** and **empty** states, plus an **error boundary** for render errors.
 - Responsive, mobile-first layouts built with Tailwind CSS breakpoints.
 - Shared layout (navbar and footer) whose links come from the API.
-- Accessible details: semantic landmarks, labelled form fields, `aria-pressed` on toggle buttons, keyboard-friendly controls.
+- Accessible details: semantic landmarks, labelled form fields, `aria-pressed` on filter chips, keyboard-friendly controls.
+
+## Screenshots
+
+| Home | Overview |
+|---|---|
+| ![Home page](docs/screenshots/home.png) | ![Overview page](docs/screenshots/overview.png) |
+
+| About | Contact |
+|---|---|
+| ![About page](docs/screenshots/about.png) | ![Contact page](docs/screenshots/contact.png) |
+
+| Explore (additional) | Mobile view |
+|---|---|
+| ![Explore page](docs/screenshots/explore.png) | ![Home page on mobile](docs/screenshots/mobile.png) |
+
+## Try It Yourself
+
+Features that are easy to miss, and where to see them:
+
+| What to try | How |
+|---|---|
+| Track explorer: search, skill filter, sorting | Open [`/explore`](https://gdgoc-frontend.vercel.app/explore), or follow the "Search and filter all tracks" link under the tracks on the Overview page. Try `/explore?q=figma` or `/explore?skill=Prototyping&sort=az`, then refresh: the same view is restored from the URL. |
+| Empty state | Open `/explore?q=zzzz`. |
+| Track spotlight | Click **Explore this track** on any track card, or open `/overview?track=development`. The Overview page loads `GET /tracks/:id` and scrolls to the spotlight panel. |
+| Persistent contact draft | On `/contact`, type into the form and refresh the page. The text fields are restored; the consent checkbox is not. |
+| Contact form validation | Press **Send message** with an empty form, or with an invalid email. |
+| Error state with retry | Open the site and wait until it loads. In the browser DevTools, open the **Network** tab and tick **Offline** (do not reload). Then navigate to another page, for example by clicking **Overview** in the navbar. API-driven sections show an error message with a **Try again** button. Untick **Offline** and click it to recover. |
+| Direct links | Open `/about`, `/contact` or `/explore` directly in the address bar. The single-page app rewrite keeps them from returning a 404. |
 
 ## Tech Stack
 
@@ -83,6 +116,13 @@ Open the URL printed in the terminal (usually http://localhost:5173).
 
 No environment variables are required. The API base URL is defined in `src/config.ts`.
 
+To preview the production build locally:
+
+```bash
+npm run build
+npm run preview
+```
+
 ## Available Scripts
 
 | Command | Description |
@@ -99,27 +139,31 @@ No environment variables are required. The API base URL is defined in `src/confi
 ## Project Structure
 
 ```
-src/
-├── assets/                 # Images and SVG illustrations exported from Figma
-├── components/
-│   ├── cards/              # Reusable cards (TrackCard)
-│   ├── layout/             # Navbar, Footer
-│   ├── sections/           # Page sections
-│   │   ├── about/          #   About page sections
-│   │   ├── contact/        #   Contact page sections (form, category list, ...)
-│   │   ├── overview/       #   Overview page sections (incl. track spotlight)
-│   │   └── explore/        #   Track explorer sections (additional challenge)
-│   └── ui/                 # Primitives: Button, Spinner, ErrorMessage, EmptyState,
-│                           #   AsyncContent, SectionLabel, TextLink, icon components
-├── data/                   # Static content that the API does not provide
-├── hooks/                  # Custom hooks: useFetch, useTrackFilters, useLocalStorage
-├── pages/                  # Route-level pages (Home, Overview, About, Contact, Explore)
-├── types/                  # TypeScript models for API responses
-├── utils/                  # Pure helper functions (track filtering and sorting)
-├── config.ts               # API base URL
-├── index.css               # Tailwind import and Figma design tokens
-├── App.tsx                 # Routes and shared layout
-└── main.tsx                # Application entry point
+├── docs/screenshots/       # Screenshots used in this README
+├── public/                 # Static files
+├── vercel.json             # Single-page app rewrite for Vercel
+└── src/
+    ├── assets/             # Images and SVG illustrations exported from Figma
+    ├── components/
+    │   ├── cards/          # Reusable cards (TrackCard)
+    │   ├── layout/         # Navbar, Footer
+    │   ├── sections/       # Page sections
+    │   │   ├── about/      #   About page sections
+    │   │   ├── contact/    #   Contact page sections (form, category list, ...)
+    │   │   ├── overview/   #   Overview page sections (incl. track spotlight)
+    │   │   └── explore/    #   Track explorer sections (additional challenge)
+    │   └── ui/             # Primitives: Button, Spinner, ErrorMessage, EmptyState,
+    │                       #   AsyncContent, ErrorBoundary, SectionLabel, TextLink,
+    │                       #   icon components
+    ├── data/               # Static content that the API does not provide
+    ├── hooks/              # Custom hooks: useFetch, useTrackFilters, useLocalStorage
+    ├── pages/              # Route-level pages (Home, Overview, About, Contact, Explore)
+    ├── types/              # TypeScript models for API responses
+    ├── utils/              # Pure helper functions (track filtering and sorting)
+    ├── config.ts           # API base URL
+    ├── index.css           # Tailwind import and Figma design tokens
+    ├── App.tsx             # Routes and shared layout
+    └── main.tsx            # Application entry point
 ```
 
 ## Architecture
@@ -146,13 +190,18 @@ The app is small enough that no global state library is needed. State lives as c
 - **URL state:** the Explore page stores its search text, selected skills and sort order in the URL query string (`useSearchParams`), so filters survive a refresh and can be shared. The Overview page reads the `track` parameter in the same way.
 - **Derived data:** filtered and sorted lists are computed during render instead of being copied into extra state, which avoids out-of-sync values.
 
-### Handling fetch states
+### Handling fetch states and errors
 
 Every API-driven section goes through the same `AsyncContent` component:
 
 - **Loading:** a spinner is shown while the request is in flight.
 - **Error:** an error message with a **retry** button that calls `refetch`.
 - **Empty:** an empty-state message when the API returns no items.
+
+Errors that happen while rendering are handled separately:
+
+- **Render errors:** an `ErrorBoundary` class component wraps the routes (and the whole app as a fallback). If a component throws while rendering, the user sees a friendly fallback with **Try again** and **Back to home** instead of a blank page. The boundary is keyed by the current path, so it resets automatically on navigation, and the navbar and footer stay usable.
+- Error boundaries do not catch errors in async code or event handlers, which is why failed API requests are handled by the `error` state of `useFetch`. The two mechanisms complement each other.
 
 ### Design tokens
 
@@ -193,7 +242,15 @@ All responses share the shape `{ success, count, data }` and are typed in `src/t
 
 ## Additional Challenges
 
-### Advanced Frontend Logic — Track Explorer (`/explore`)
+| Challenge from the assignment | What was implemented |
+|---|---|
+| **Advanced Frontend Logic** | Client-side search, multi-skill filtering and sorting (Track Explorer); state persistence in the URL (Explorer, Track Spotlight) and in `localStorage` (contact draft) |
+| **Data Understanding** | Track Spotlight built on `GET /tracks/:id` and the `what_you_do` field; skill chips generated from the data; guidance, colors and ordering driven by API fields |
+| **Code Quality** | TypeScript `strict`, ESLint, Prettier, error boundary, logic separated from presentation, conventional commits |
+
+### 1. Advanced Frontend Logic
+
+#### Track Explorer (`/explore`)
 
 A client-side explorer for the tracks returned by `GET /tracks`:
 
@@ -205,15 +262,24 @@ A client-side explorer for the tracks returned by `GET /tracks`:
 
 The filtering logic lives in pure functions (`src/utils/trackFilters.ts`), URL state lives in a custom hook (`src/hooks/useTrackFilters.ts`), and the UI lives in components (`src/components/sections/explore/`).
 
-### Track Spotlight (Overview)
+#### Persistent contact draft
+
+The contact form stores its text fields in `localStorage` through a reusable `useLocalStorage` hook, restores them after a refresh and clears them once the (simulated) message is sent. The consent checkbox is intentionally never persisted, so the user always agrees again before sending.
+
+### 2. Data Understanding
+
+#### Track Spotlight (Overview)
 
 The "Explore this track" buttons use the API's `explore_link` (`/overview?track=<id>`). When the parameter matches a known track, the Overview page loads `GET /tracks/:id`, shows a spotlight panel with the `what_you_do` text, skills and accent color (data not shown elsewhere), highlights the matching card and scrolls to it. Unknown ids are ignored. Without the parameter the page matches the Figma design exactly.
 
-### Persistent Contact Draft
+#### Other data-driven details
 
-The contact form stores its text fields in `localStorage` through a reusable `useLocalStorage` hook, restores them after a refresh and clears them once the (simulated) message is sent. The consent checkbox is intentionally never persisted.
+- The skill chips on the Explore page are **generated from the data** (all unique values of each track's `skills` field), so new tracks or skills from the API appear automatically without code changes.
+- Contact page guidance tips reuse the `guidance` field from `/inquiry-categories`.
+- Journey steps are sorted by the API's `step` number, and value accent colors come from the API's `color` field.
+- Formats are mapped by their `id` so icons and ordering stay correct even if the API order changes.
 
-### Code Quality
+### 3. Code Quality
 
 - TypeScript throughout, with typed API models and typed component props.
 - TypeScript `strict` mode enabled explicitly, plus `noUnusedLocals` and `noUnusedParameters`.
@@ -224,26 +290,17 @@ The contact form stores its text fields in `localStorage` through a reusable `us
 - Consistent file naming and small, single-purpose components.
 - Conventional commit messages (`feat:`, `fix:`, `style:`, `chore:`).
 
-### Tooling
-
-Prettier (`npm run format`), stricter ESLint rules (`eqeqeq`, `no-console`), explicit TypeScript `strict` mode and a `typecheck` script.
-
-### Data Understanding
-
-- The skill chips on the Explore page are **generated from the data** (all unique values of each track's `skills` field), so new tracks or skills from the API appear automatically without code changes.
-- Contact page guidance tips reuse the `guidance` field from `/inquiry-categories`.
-- Journey steps are sorted by the API's `step` number, and value accent colors come from the API's `color` field.
-- Formats are mapped by their `id` so icons and ordering stay correct even if the API order changes.
-
 ## Design Implementation Notes
 
 - Icons and illustrations were exported from Figma as SVG, and are rendered at the sizes and offsets measured in the design (for example, the glow of the track illustrations extends past the colored area, as in Figma).
-- Gradient text and custom controls (checkbox, toggle, chips) are implemented with CSS instead of images.
+- Gradient text and custom controls (checkbox, chips) are implemented with CSS instead of images.
 - Layouts are mobile-first and adapt at Tailwind's `sm`, `md`, `lg` and `xl` breakpoints. The design's 1440 px canvas is used as the maximum content width.
 
 ## Deployment
 
-The app is a single-page application using client-side routing, so the host must serve `index.html` for every path. Without this, opening a route such as `/about` directly, or refreshing on it, returns a 404.
+The app is deployed on Vercel: https://gdgoc-frontend.vercel.app
+
+It is a single-page application using client-side routing, so the host must serve `index.html` for every path. Without this, opening a route such as `/about` directly, or refreshing on it, returns a 404.
 
 - **Vercel:** a `vercel.json` file at the project root rewrites all paths to `index.html`.
 
@@ -262,6 +319,7 @@ Build settings: build command `npm run build`, output directory `dist`.
 
 - **Contact form is simulated.** The provided API only exposes `GET` endpoints, so there is no endpoint to submit the form to. Validation runs for real, and a success message is shown after a short simulated delay. Replacing the delay in `ContactForm.tsx` with a `fetch(..., { method: 'POST' })` call is all that is needed once an endpoint exists.
 - Text coming from the API can differ from the Figma placeholder copy (see [API Usage](#api-usage)).
+- The Home page FAQ shows the first three questions, as in the design. The API returns seven.
 - The Explore page is reachable from the link under the tracks on the Overview page and by its URL (`/explore`). It is not in the navbar, because the navbar items are provided by the API.
 
 ## Git Workflow
@@ -272,6 +330,11 @@ Work was committed incrementally using conventional commit prefixes:
 - `fix:` corrections to match the Figma design
 - `style:` design token and styling changes
 - `chore:` setup and configuration
+- `docs:` documentation
+
+## Acknowledgements
+
+The Figma design and the REST API were provided by GDGoC UGM for the Front-End recruitment task.
 
 ---
 
