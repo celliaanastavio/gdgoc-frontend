@@ -1,6 +1,7 @@
 import { Route, Routes, useLocation } from 'react-router-dom'
 import Footer from './components/layout/Footer'
 import Navbar from './components/layout/Navbar'
+import ScrollToTop from './components/layout/ScrollToTop'
 import ErrorBoundary from './components/ui/ErrorBoundary'
 import AboutPage from './pages/AboutPage'
 import ContactPage from './pages/ContactPage'
@@ -28,6 +29,7 @@ function AppRoutes() {
 export default function App() {
   return (
     <>
+      <ScrollToTop />
       <Navbar />
       <main>
         <AppRoutes />
