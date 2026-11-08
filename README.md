@@ -12,7 +12,7 @@ A responsive website for **Google Developer Groups on Campus, Universitas Gadjah
 |---|---|
 | Source code | https://github.com/celliaanastavio/gdgoc-frontend |
 | Live deployment | https://gdgoc-frontend.vercel.app |
-| Video presentation (Google Drive) |  |
+| Video presentation (Google Drive) | https://drive.google.com/drive/folders/1MQ4r5_Vp46dGLpnUrTnYib_XhidGSeMD?usp=sharing |
 | Figma design reference | [GDGoC – Open Recruitment](https://www.figma.com/design/yx06YRA90jBEX0Mmu64RBx/GDGoC-%E2%80%93-Open-Recruitment) |
 | API | https://gdgoc-ugm-api.vercel.app/api |
 
@@ -51,21 +51,25 @@ Across all pages:
 - Content is fetched dynamically from the API, with **loading**, **error (with retry)** and **empty** states, plus an **error boundary** for render errors.
 - Responsive, mobile-first layouts built with Tailwind CSS breakpoints.
 - Shared layout (navbar and footer) whose links come from the API.
+- Navigating to another page scrolls back to the top, while anchor links (`#tracks`) and the browser's Back/Forward buttons keep their expected scroll behavior.
 - Accessible details: semantic landmarks, labelled form fields, `aria-pressed` on filter chips, keyboard-friendly controls.
 
 ## Screenshots
 
-| Home | Overview |
-|---|---|
-| ![Home page](docs/screenshots/home.png) | ![Overview page](docs/screenshots/overview.png) |
-
-| About | Contact |
-|---|---|
-| ![About page](docs/screenshots/about.png) | ![Contact page](docs/screenshots/contact.png) |
-
-| Explore (additional) | Mobile view |
-|---|---|
-| ![Explore page](docs/screenshots/explore.png) | ![Home page on mobile](docs/screenshots/mobile.png) |
+<table>
+  <tr>
+    <td align="center"><b>Home</b><br/><img src="docs/screenshots/home.png" alt="Home page" width="400" /></td>
+    <td align="center"><b>Overview</b><br/><img src="docs/screenshots/overview.png" alt="Overview page" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>About</b><br/><img src="docs/screenshots/about.png" alt="About page" width="400" /></td>
+    <td align="center"><b>Contact</b><br/><img src="docs/screenshots/contact.png" alt="Contact page" width="400" /></td>
+  </tr>
+  <tr>
+    <td align="center"><b>Explore (additional)</b><br/><img src="docs/screenshots/explore.png" alt="Explore page" width="400" /></td>
+    <td align="center"><b>Mobile view</b><br/><img src="docs/screenshots/mobile.png" alt="Home page on mobile" width="200" /></td>
+  </tr>
+</table>
 
 ## Try It Yourself
 
@@ -146,7 +150,7 @@ npm run preview
     ├── assets/             # Images and SVG illustrations exported from Figma
     ├── components/
     │   ├── cards/          # Reusable cards (TrackCard)
-    │   ├── layout/         # Navbar, Footer
+    │   ├── layout/         # Navbar, Footer, ScrollToTop
     │   ├── sections/       # Page sections
     │   │   ├── about/      #   About page sections
     │   │   ├── contact/    #   Contact page sections (form, category list, ...)
@@ -288,7 +292,7 @@ The "Explore this track" buttons use the API's `explore_link` (`/overview?track=
 - An error boundary catches render errors so a single failing component does not blank the whole page.
 - Logic separated from presentation: pure helpers in `utils/`, stateful logic in `hooks/`, rendering in `components/`.
 - Consistent file naming and small, single-purpose components.
-- Conventional commit messages (`feat:`, `fix:`, `style:`, `chore:`).
+- Conventional commit messages (`feat:`, `fix:`, `style:`, `chore:`, `docs:`).
 
 ## Design Implementation Notes
 
